@@ -1,0 +1,894 @@
+# MASTER PROJECT PROMPT — SortAI
+## AI-Powered E-Waste Classification, Safe Sorting, and Recycler Bidding Marketplace
+
+### 1. YOUR ROLE
+
+Act as a senior AI engineer, computer vision researcher, full-stack developer, mobile application architect, backend engineer, database designer, UI/UX designer, and technical project manager.
+
+Your responsibility is to help build **SortAI**, a functional prototype for an academic Design Thinking with Artificial Intelligence project.
+
+Do not create only a presentation, static mockup, landing page, or simple camera application. Build a connected, testable application with a real computer vision integration, sorting workflow, safety controls, crate management, recycler dashboard, bidding system, and database-backed records.
+
+Work incrementally. Inspect the existing project before making changes, reuse working code, and never unnecessarily rebuild existing components.
+
+If the repository already contains code, first understand its architecture, dependencies, current implementation, and unfinished features. Create a gap analysis before editing anything.
+
+If no repository exists, propose a clean project structure and then implement it.
+
+Do not claim a feature works unless it has been implemented and tested. Do not fabricate AI accuracy, recycler participation, certifications, successful pickups, or real payments.
+
+---
+
+### 2. PROJECT IDENTITY
+
+Project name: SortAI
+
+Project category: Artificial intelligence, computer vision, electronic waste management, recycling logistics, and B2B marketplace.
+
+Primary users:
+1. Informal scrap collectors and kabadiwalas.
+2. Scrap shop owners and collection centres.
+3. Authorised electronic waste recyclers.
+4. Administrators who oversee the platform.
+
+Core mission:
+
+Help informal scrap collectors identify and segregate electronic waste correctly, reduce unsafe handling and material contamination, improve the potential selling value of sorted scrap, and connect category-specific material lots to appropriate recyclers.
+
+The main idea is:
+
+**A collector should be able to point a smartphone camera at electronic waste, understand what category it belongs to, receive simple safety instructions in a familiar language, place it in the correct coloured crate, and eventually sell the collected material through a recycler bidding marketplace.**
+
+The application must be designed for real-world conditions, including low literacy, inexpensive Android smartphones, poor internet connectivity, dirty or damaged objects, cluttered backgrounds, and users who may not understand technical recycling terminology.
+
+This is a prototype-level academic project. Prioritise a convincing, working demonstration over unnecessary enterprise complexity.
+
+---
+
+### 3. THE PROBLEM WE ARE SOLVING
+
+Electronic waste includes discarded phones, chargers, computers, televisions, batteries, fans, motors, cables, circuit boards, displays, and other electrical equipment.
+
+Neighbourhood scrap collectors are often the first point of contact in the informal collection chain. However, they may lack technical knowledge about the materials and hazards inside the items they collect.
+
+The resulting problems include:
+
+- Different materials are mixed together.
+- Valuable printed circuit boards, copper-bearing components, and cables may be sold as undifferentiated scrap.
+- Batteries and damaged cells may be mixed with ordinary materials, increasing fire and injury risks.
+- Specialist recyclers may receive contaminated material instead of clean, category-specific feedstock.
+- Collectors may receive lower prices because the material has not been segregated.
+- Collectors may lack access to reliable category-specific buyers.
+- Manual classification depends on individual experience and may be inconsistent.
+
+SortAI addresses these problems through computer vision, colour-coded guidance, safety-first handling, digital inventory management, and a category-specific recycler marketplace.
+
+Do not claim that these problems or their economic impact have been quantified unless field research or reliable evidence supports the claim.
+
+---
+
+### 4. COMPLETE USER WORKFLOW
+
+Implement the following end-to-end workflow.
+
+STEP 1 — User registration and role selection
+
+Provide separate experiences for:
+- Collector
+- Shop owner or collection-centre manager
+- Recycler
+- Administrator
+
+For the prototype, provide secure authentication or a clearly labelled development/demo login. Users must not be able to access another user's private inventory or privileged administration functions.
+
+STEP 2 — Collector dashboard
+
+The collector should see:
+- Scan electronic waste
+- Today's scanned items
+- Current crate inventory
+- Approximate accumulated quantities
+- Items requiring review
+- Hazard alerts
+- Eligible pickup requests
+- Marketplace activity
+- Completed pickups
+- Estimated and confirmed earnings
+- Language settings
+
+Keep the home screen simple and mobile-friendly.
+
+STEP 3 — Snap-to-Sort scanning
+
+The collector opens the camera or uploads a photograph.
+
+The application processes the image and returns:
+- Predicted category
+- Confidence score
+- Item or component description, when supported
+- Appropriate crate colour
+- A large visual category icon
+- Simple sorting instructions
+- Safety warnings
+- Whether human confirmation is required
+- Whether the result is safe to accept automatically
+
+Provide two modes:
+
+A. Whole-device mode:
+Identify a whole device such as a phone, television, charger, computer, or fan. Show a cautious, high-level guide to the likely material categories present.
+
+B. Separated-component mode:
+Classify a component that has already been separated, such as a circuit board, cable, motor, battery, display, or plastic casing.
+
+Do not instruct users to open dangerous devices, cut cables, dismantle batteries, handle hazardous internal components, or perform unsafe extraction. Direct hazardous or uncertain dismantling situations to trained professionals.
+
+STEP 4 — Safety decision
+
+Before suggesting a crate, evaluate the predicted category, confidence, and hazard-related rules.
+
+If the result is uncertain, display a prominent “Needs Review” state.
+
+If the system detects a possible battery or hazardous item, display the appropriate warning and conservative handling guidance.
+
+A dangerous item must never be classified as safe merely because the model gives a low-risk category a high score.
+
+STEP 5 — Confirm or correct
+
+Let the collector:
+- Confirm the proposed category.
+- Correct an incorrect category.
+- Send the item for review.
+- Cancel the scan.
+
+Record corrections for future dataset improvement, but do not automatically treat every user correction as verified ground truth.
+
+STEP 6 — Crate inventory
+
+After confirmation, record the item in the appropriate crate inventory.
+
+Track:
+- Item ID
+- Collector ID
+- Category
+- Predicted class
+- Confirmed class
+- Confidence score
+- Safety flags
+- Scan time
+- Confirmation status
+- Crate ID
+- Quantity or weight, when measured
+- Weight measurement source
+- Correction history
+
+Do not invent a physical weight from a photograph. If weight is unavailable, request a manual entry or use a clearly labelled demo value.
+
+STEP 7 — Pickup eligibility
+
+Each crate or material lot has a configurable pickup threshold.
+
+When its verified accumulated quantity reaches that threshold, offer the collector an option to create a pickup request.
+
+A threshold can be based on weight, quantity, or a configurable rule, depending on the material and recycler requirements.
+
+Do not assume that every category has the same threshold.
+
+STEP 8 — Recycler marketplace
+
+Eligible recyclers can view compatible material lots and submit bids.
+
+The collector can compare:
+- Offered price per kilogram or other explicitly defined unit
+- Expected total value
+- Material category
+- Reported quantity or weight
+- Pickup location at an appropriate level of detail
+- Proposed pickup time
+- Recycler verification status
+- Bid expiry
+- Purity and acceptance conditions
+
+The marketplace should support bid submission, editing before expiry, acceptance, rejection, withdrawal when allowed, and bid status tracking.
+
+Only eligible recyclers should see and bid on relevant categories.
+
+STEP 9 — Pickup and purity verification
+
+After accepting a bid:
+- Create a pickup record.
+- Assign a pickup status.
+- Record the planned date and time.
+- Allow the collector to mark the material ready.
+- Allow the recycler to confirm collection.
+- Record actual measured weight.
+- Record the purity or acceptance result.
+- Record any quantity or price adjustment.
+- Store evidence or notes when available.
+
+Possible statuses:
+
+Draft → Open for Bids → Bid Accepted → Pickup Scheduled → Collected → Quality Verified → Payment Recorded → Completed.
+
+Provide cancellation and dispute states where appropriate.
+
+Do not allow users to mark a pickup as completed without the required workflow checks.
+
+STEP 10 — Payment demonstration
+
+The academic prototype must use simulated payments unless a real payment provider has been deliberately integrated and tested.
+
+Provide:
+- Agreed amount
+- Final verified amount
+- Simulated payment reference
+- Payment status
+- Transaction history
+- Timestamp
+- Clear “Demo Payment — No Money Transferred” wording
+
+Do not collect real UPI credentials, banking passwords, or payment PINs.
+
+---
+
+### 5. COMPUTER VISION ENGINE
+
+This is one of the most important components of SortAI.
+
+Design a modular vision engine that can initially use a mock inference provider for UI development, then switch to a trained model without rewriting the application.
+
+The eventual model should run locally on a compatible Android device, with offline inference where feasible.
+
+Potential technologies:
+- Python
+- PyTorch for model development
+- OpenCV for image processing
+- YOLO-family object detection for cluttered scenes containing multiple objects
+- MobileNet or EfficientNet-Lite for lightweight classification
+- TensorFlow Lite for compatible on-device inference
+
+Select the actual model based on dataset suitability, measured performance, device constraints, and licensing. Do not use every framework unnecessarily.
+
+For the academic prototype, begin with a single-item classifier if that is the most achievable route. Keep the architecture extensible to object detection.
+
+#### Required inference interface
+
+Create a clearly defined interface such as:
+
+predict(image, mode) → prediction result
+
+The result should contain:
+- Class label
+- Confidence score
+- Optional bounding boxes
+- Hazard indicators
+- Review-required flag
+- Model version
+- Inference duration
+- Supporting metadata
+
+Keep the inference service independent of UI components and marketplace logic.
+
+#### Initial material categories
+
+Use the following categories from the project synopsis:
+
+1. Printed circuit boards
+   - Higher-grade boards, such as phone or laptop boards, when the model can reliably distinguish them.
+   - Lower-grade power-supply or appliance boards, when supported by training data.
+
+2. Batteries — hazardous
+   - Lithium-ion
+   - Lead-acid
+   - Nickel-cadmium
+   - Damaged or swollen battery warning where supported.
+
+3. Copper coils, transformers, and motors.
+
+4. Cables and wires.
+
+5. Display panels
+   - Treat older displays as potentially hazardous when their construction is unknown.
+   - Do not claim that mercury is visually confirmed by the model.
+
+6. Glass and engineered plastics.
+
+7. Unknown / Needs Review.
+
+Important: The above categories are the intended prototype taxonomy, not a claim that a trained model already recognises all of them.
+
+Build a configurable label map. If there is insufficient data to distinguish subcategories reliably, return a broader parent category or Needs Review.
+
+#### Confidence and safety policy
+
+Use class-specific confidence thresholds.
+
+Hazardous categories should have stricter decision rules than ordinary low-risk categories. Tune thresholds using validation data rather than selecting arbitrary thresholds and claiming they are scientifically validated.
+
+Use the following general decision logic:
+
+- High-confidence, non-hazardous result: show a proposed category and request confirmation.
+- Ambiguous or out-of-distribution result: Needs Review.
+- Possible hazardous material: show a conservative warning and require appropriate review.
+- Suspected damaged or swollen battery: trigger a high-priority safety warning.
+- Model unavailable: allow manual review without pretending AI inference occurred.
+
+A photograph cannot reliably establish every hazardous property. Do not present visual inference as a safety certification.
+
+---
+
+### 6. COLOR-CODED CRATE SYSTEM
+
+Use these exact category colours from the synopsis:
+
+| Crate | Category | Colour |
+|---|---|---|
+| 1 | Printed circuit boards | Green |
+| 2 | Batteries — hazardous | Red |
+| 3 | Copper coils, transformers, motors | Orange |
+| 4 | Cables and wires | Yellow |
+| 5 | Display panels | Blue |
+| 6 | Glass and engineered plastics | Purple |
+| — | Unknown / Needs Review | Grey |
+
+The same colour must be used consistently in:
+- Scan result screens
+- Crate inventory cards
+- Sorting instructions
+- Crate labels
+- Recycler listings
+- Reports
+
+Do not rely on colour alone. Always pair colours with icons, text labels, and spoken instructions so that users with colour-vision deficiencies can still use the application.
+
+The red battery crate is a category identifier, not a claim that ordinary storage in a crate makes batteries safe. Actual storage and handling must follow suitable safety requirements.
+
+The Unknown crate is a logical review state. Do not assume that all uncertain or hazardous materials should be physically placed together in one container. Actual storage must follow material-specific safety guidance.
+
+---
+
+### 7. VOICE AND MULTILINGUAL EXPERIENCE
+
+The collector interface should support:
+- Hindi
+- English
+- An extensible regional-language system
+
+Provide:
+- Large icons
+- Short instructions
+- Optional text-to-speech
+- Optional spoken feedback
+- Simple confirmation buttons
+- Accessible font sizes
+- High-contrast visual states
+- Minimal typing
+
+For example, the interface could communicate:
+
+“Battery detected. Possible hazard. Do not dismantle. Follow the approved battery-handling procedure.”
+
+This is illustrative wording. Use locally reviewed safety instructions before deployment.
+
+Store translations separately from application logic. Provide a language selector and graceful fallback when speech synthesis or network services are unavailable.
+
+Offline scanning and essential safety guidance should not depend on a live AI chatbot or continuous internet connectivity.
+
+---
+
+### 8. CRATE INVENTORY AND THRESHOLD ENGINE
+
+Create a reliable inventory subsystem.
+
+Required entities:
+- Collector
+- Collection centre
+- Material category
+- Crate
+- Scanned item
+- Material lot
+- Inventory adjustment
+- Pickup threshold
+- Pickup request
+
+The system must:
+- Add confirmed items to inventory.
+- Support measured weights and quantities.
+- Prevent accidental duplicate submissions.
+- Record manual corrections.
+- Track available, reserved, collected, and disputed quantities.
+- Create marketplace lots only from eligible inventory.
+- Reserve inventory appropriately when a pickup is agreed.
+- Prevent the same material from being sold twice.
+- Preserve an auditable history of changes.
+
+Threshold logic must be configurable by category and location.
+
+Do not automatically trigger a real vehicle dispatch. For the prototype, generate a pickup request and demonstrate scheduling in the dashboard.
+
+---
+
+### 9. B2B RECYCLER MARKETPLACE
+
+Create a functioning marketplace connecting collection centres to recyclers.
+
+#### Collector side
+- View available category lots.
+- Review estimated quantities.
+- Request bids.
+- Compare offers.
+- Accept or reject bids.
+- Track pickups.
+- Review purity results.
+- View completed sales and earnings.
+
+#### Recycler side
+- Register a recycler profile.
+- Submit required verification information.
+- View appropriate marketplace listings.
+- Filter by category and quantity.
+- Submit and manage bids.
+- Schedule proposed pickups.
+- Confirm collection.
+- Record actual weight and material acceptance.
+- Submit purity feedback.
+
+#### Administrator side
+- Review recycler applications.
+- Manage material categories.
+- Configure thresholds.
+- Review flagged transactions.
+- Investigate disputes.
+- Manage demo accounts.
+- View system activity.
+
+Recycler verification must be represented honestly. Use statuses such as Pending Verification, Verified, Rejected, or Suspended.
+
+For demonstrations, seed clearly labelled fictional recycler accounts. Do not falsely claim that a fictional account is CPCB-authorised.
+
+In real deployment, recycler eligibility and applicable regulatory requirements must be verified against authoritative records before a recycler can purchase material.
+
+The marketplace should use category-specific eligibility rules and avoid treating all recyclers as suitable for every material.
+
+#### Bidding logic
+
+Each bid should record:
+- Bid ID
+- Recycler ID
+- Material lot ID
+- Offered price and unit
+- Estimated total
+- Conditions
+- Proposed pickup window
+- Submission time
+- Expiry time
+- Status
+
+Validate quantities, prices, deadlines, user permissions, and conflicting accepted bids on the backend.
+
+The prototype should support a realistic demonstration using seeded data even if no external recycler is connected.
+
+---
+
+### 10. USER INTERFACE AND DESIGN
+
+Design a polished, modern, mobile-first application that is easy to demonstrate to university evaluators.
+
+Use a clean environmental technology visual identity.
+
+Recommended visual direction:
+- Neutral backgrounds
+- Green as a primary brand accent
+- Consistent category colours
+- Large buttons
+- Clear safety banners
+- Simple typography
+- Responsive cards and tables
+- Minimal unnecessary animation
+
+Do not create an overly complex enterprise dashboard for collectors.
+
+Required screens:
+
+1. Welcome and onboarding.
+2. Login or demo role selection.
+3. Collector dashboard.
+4. Camera scan.
+5. Image upload and scanning state.
+6. AI result and confidence display.
+7. Hazard alert.
+8. Confirm or correct category.
+9. Crate inventory.
+10. Crate details and pickup threshold.
+11. Marketplace listings.
+12. Bid comparison.
+13. Pickup scheduling and tracking.
+14. Payment history.
+15. Collector reports.
+16. Recycler dashboard.
+17. Recycler verification profile.
+18. Bid management.
+19. Pickup and purity verification.
+20. Administrator dashboard.
+21. Settings and language selection.
+
+Use consistent navigation and realistic loading, empty, error, offline, and success states.
+
+Every visible button should have a meaningful action. Do not leave important controls as decorative placeholders.
+
+If a feature is not implemented, label it as unavailable or demo-only.
+
+---
+
+### 11. TECHNICAL ARCHITECTURE
+
+Use modular architecture with clearly separated responsibilities.
+
+Recommended architecture:
+
+A. Mobile client
+- Flutter, or React Native if already established in the repository.
+- Camera and image upload.
+- On-device inference adapter.
+- Local scan queue.
+- Crate guidance.
+- Voice and visual accessibility.
+- Offline-friendly screens.
+
+B. Vision engine
+- Python
+- PyTorch/OpenCV for model development and evaluation.
+- YOLO-family detector or lightweight classifier as appropriate.
+- TensorFlow Lite export where supported and tested.
+- Versioned class labels and configurable confidence policies.
+
+C. Backend API
+- FastAPI in Python, or the existing backend framework if the repository already uses one.
+- Authentication and role-based access.
+- Inventory management.
+- Threshold calculations.
+- Material lot creation.
+- Marketplace listings and bidding.
+- Pickup lifecycle.
+- Purity records.
+- Demo payment records.
+- Audit logs.
+
+D. Database
+- Use PostgreSQL for a structured production-oriented backend, or Firebase/MongoDB if the existing prototype architecture makes that more practical.
+- Select one primary persistence approach rather than maintaining duplicate databases without a clear reason.
+
+E. Storage
+- Store necessary item images securely.
+- Avoid retaining unnecessary personal or location data.
+- Use access-controlled storage and define a retention policy.
+
+F. Recycler dashboard
+- A responsive web dashboard is acceptable.
+- It must use the same backend and database as the collector application.
+
+G. Testing and observability
+- Unit tests
+- API integration tests
+- Model evaluation scripts
+- Structured error logs
+- Basic performance measurements
+- Clear separation between demo data and real records
+
+Do not force the entire project into a single giant file.
+
+Suggested logical structure:
+
+sortai/
+  mobile_app/
+  recycler_dashboard/
+  backend/
+    api/
+    models/
+    schemas/
+    services/
+    repositories/
+    security/
+    tests/
+  vision_engine/
+    inference/
+    training/
+    evaluation/
+    datasets/
+    tests/
+  shared/
+    category_taxonomy/
+    validation/
+  docs/
+  scripts/
+
+Adapt this structure to the current repository instead of blindly creating duplicate directories.
+
+---
+
+### 12. DATABASE AND API DESIGN
+
+Design database schemas and API endpoints before implementing business logic.
+
+Core data models should include:
+
+- User
+- Role
+- CollectorProfile
+- RecyclerProfile
+- MaterialCategory
+- Scan
+- ClassificationResult
+- HazardAlert
+- Crate
+- CrateInventory
+- InventoryTransaction
+- MaterialLot
+- PickupRequest
+- Bid
+- Pickup
+- PurityInspection
+- PaymentRecord
+- UserCorrection
+- AuditEvent
+
+Use stable identifiers, timestamps, validation rules, and appropriate relationships.
+
+Important backend rules:
+- Authentication must be enforced on protected endpoints.
+- A collector cannot modify another collector's inventory.
+- A recycler cannot submit bids unless eligible for the category.
+- An accepted bid cannot be overwritten by a competing accepted bid.
+- Inventory quantities must not become negative.
+- A completed pickup must retain its transaction history.
+- Payment records must be clearly distinguished from actual payment-provider transactions.
+- Critical inventory changes should be auditable.
+- Client-side validation must be backed by server-side validation.
+
+Create API documentation and example requests.
+
+Include health-check endpoints and a documented local development setup.
+
+---
+
+### 13. DATASET AND MODEL TRAINING
+
+The model must eventually be evaluated on real e-waste images rather than only clean internet images.
+
+Build a dataset workflow that supports:
+1. Collecting images with appropriate permission.
+2. Labelling material categories.
+3. Recording image quality and difficult conditions.
+4. Separating training, validation, and test data.
+5. Preventing near-duplicate images from leaking across splits.
+6. Training from a pretrained model.
+7. Applying augmentation for lighting, rotation, blur, clutter, and partial occlusion.
+8. Evaluating class-specific performance.
+9. Exporting the selected model.
+10. Testing inference on the intended device.
+
+Start with publicly available datasets where their labels, access rights, and licences permit use. Supplement them with original field images of real scrap, collected responsibly.
+
+Do not invent a dataset or claim that the model has been trained if only a mock classifier exists.
+
+If no suitable labelled dataset is available, document that limitation and build a data collection and annotation pipeline.
+
+#### Evaluation metrics
+
+Measure:
+- Overall accuracy
+- Per-class precision and recall
+- Confusion matrix
+- Hazard-class recall
+- False-negative hazard cases
+- Confidence calibration where feasible
+- Inference latency
+- Model size
+- Memory usage
+- Offline behaviour
+- Performance on dirty, damaged, and partially obscured items
+
+The synopsis proposes a target of at least 90% top-1 accuracy and inference under five seconds on a mid-range phone. These are goals to evaluate, not guaranteed results.
+
+Safety-related classes must be evaluated separately. High overall accuracy is insufficient if batteries are frequently missed.
+
+Use an Unknown/Needs Review route for unsupported objects and uncertain predictions.
+
+---
+
+### 14. SECURITY, PRIVACY, AND SAFETY
+
+Treat security and safety as essential requirements.
+
+Implement:
+- Secure authentication.
+- Role-based permissions.
+- Server-side validation.
+- Protected API endpoints.
+- Rate limiting where appropriate.
+- Secure handling of uploaded images.
+- Secrets stored in environment variables.
+- No committed API keys or passwords.
+- Audit trails for critical operations.
+- Protection against duplicate transactions.
+- Clear demo-data labelling.
+- Minimal collection of personal information.
+
+For hazardous materials:
+- Never claim that a visual model can certify an item as safe.
+- Do not automatically approve uncertain hazardous items for ordinary storage.
+- Provide conservative warnings for suspected batteries and damaged cells.
+- Avoid instructions for dangerous dismantling.
+- Direct users to approved handling procedures and trained professionals.
+- Clearly distinguish a model prediction from verified human inspection.
+
+For regulatory compliance, treat applicable Indian e-waste regulations and authorised-recycler requirements as deployment constraints requiring verification. Do not make unsupported legal-compliance claims.
+
+---
+
+### 15. TESTING AND ACCEPTANCE CRITERIA
+
+Build tests that verify the actual system, not just whether screens render.
+
+Minimum acceptance criteria:
+
+1. A user can enter the collector experience.
+2. A collector can upload an image or open a camera capture flow.
+3. The system returns a clearly identified prediction source: trained model, mock provider, or manual review.
+4. The result shows a category, confidence where available, and appropriate handling guidance.
+5. An uncertain result reaches Needs Review.
+6. A suspected hazardous item receives the appropriate warning.
+7. A confirmed item updates the correct crate inventory.
+8. Inventory records survive application refresh and backend restart.
+9. The system detects when a configured pickup threshold is reached.
+10. An eligible material lot can be published to the marketplace.
+11. An eligible recycler can submit a bid.
+12. The collector can accept an eligible bid.
+13. The pickup can move through the supported lifecycle.
+14. The purity inspection can record measured results.
+15. The payment demonstration is clearly simulated.
+16. Users cannot modify records outside their permissions.
+17. Duplicate requests do not create duplicate inventory or sales transactions.
+18. The collector interface remains usable on a mobile-sized screen.
+19. The application handles API errors and offline inference failures gracefully.
+20. Automated tests cover the most important backend and workflow rules.
+
+Report which criteria pass, fail, or remain unimplemented. Never mark an acceptance criterion as passed solely because the code was generated.
+
+---
+
+### 16. PROJECT DEVELOPMENT PLAN
+
+Implement SortAI in controlled phases.
+
+PHASE 0 — Repository audit
+- Inspect all existing files.
+- Identify framework, dependencies, entry points, and running services.
+- Identify completed, incomplete, and broken features.
+- Identify existing model integration and database configuration.
+- Report missing components and likely technical risks.
+- Preserve working functionality.
+
+PHASE 1 — Architecture and foundations
+- Define the category taxonomy.
+- Define user roles and permissions.
+- Design data models and APIs.
+- Establish configuration and environment files.
+- Create automated test infrastructure.
+- Produce a concise architecture document.
+
+PHASE 2 — Working application shell
+- Build the navigation and dashboards.
+- Implement authentication or labelled demo access.
+- Implement collector and recycler experiences.
+- Connect the frontend to persistent backend data.
+- Seed clearly labelled demonstration data.
+
+PHASE 3 — Snap-to-Sort engine
+- Implement image capture and upload.
+- Define the inference interface.
+- Start with a mock inference provider if the trained model is unavailable.
+- Add the category result, confidence display, confirmation flow, and Unknown route.
+- Add hazard-rule handling.
+- Add tests.
+
+PHASE 4 — Inventory and crate management
+- Implement all category colours and labels.
+- Save confirmed scans.
+- Track quantities and measured weights.
+- Implement correction history and configurable thresholds.
+- Test duplicate prevention and inventory consistency.
+
+PHASE 5 — Recycler marketplace
+- Implement category-specific material lots.
+- Implement recycler eligibility checks.
+- Implement bidding, comparison, and acceptance.
+- Implement pickup scheduling and status tracking.
+- Implement purity inspection and simulated payment records.
+
+PHASE 6 — Real model integration
+- Prepare or evaluate a suitable dataset.
+- Train and validate the chosen model when data and compute are available.
+- Integrate the model behind the established inference interface.
+- Export and test the mobile-compatible model.
+- Measure actual accuracy, hazard recall, latency, and model size.
+
+PHASE 7 — Final validation
+- Run the automated test suite.
+- Test all major user workflows.
+- Fix broken controls and data inconsistencies.
+- Test on a real or representative Android device if available.
+- Document offline limitations.
+- Prepare a working academic demonstration.
+
+Do not skip foundational work to create impressive-looking screens that do not function.
+
+---
+
+### 17. DEVELOPMENT RULES FOR THE AI CODING AGENT
+
+Follow these rules throughout implementation.
+
+1. Inspect the existing repository before changing code.
+2. Do not unnecessarily replace the current framework or rebuild working components.
+3. Do not generate the whole application as one enormous file.
+4. Implement a small, testable feature set in each phase.
+5. Explain the files being created or modified and why.
+6. Run the available tests after meaningful changes.
+7. Resolve errors before building more dependent features.
+8. Keep real model inference separate from mock predictions.
+9. Never silently replace failed AI inference with a fake successful result.
+10. Do not claim that the model has 90% accuracy without evaluation results.
+11. Do not fabricate recycler verification or successful real transactions.
+12. Use environment variables for configuration and secrets.
+13. Keep database migrations and setup instructions reproducible.
+14. Make important UI controls functional.
+15. Document assumptions and limitations.
+16. Ask only when a decision is genuinely blocking; otherwise choose a sensible, reversible default and document it.
+17. Do not install unnecessary packages.
+18. Do not introduce paid APIs when a local or free alternative is sufficient for the prototype.
+19. Keep the app demonstrable without requiring a live external recycler or real payment integration.
+20. Preserve a clear distinction between implemented functionality, simulated functionality, and future work.
+
+---
+
+### 18. WHAT I EXPECT FROM YOU FIRST
+
+Do not attempt to implement every feature in one unreviewed operation.
+
+Begin by inspecting the repository and returning:
+
+A. Current project structure and technology stack.
+
+B. Existing functionality that already works.
+
+C. Missing or broken components.
+
+D. The recommended architecture based on the actual repository.
+
+E. The minimum viable end-to-end workflow for a university demonstration.
+
+F. The implementation sequence, including dependencies between tasks.
+
+G. The files you propose to create or modify in the first phase.
+
+H. The exact commands required to run the current project and its tests.
+
+Then begin implementation of the first phase, unless a genuine blocking issue requires clarification.
+
+After every phase, report:
+- What was implemented.
+- Files created or modified.
+- Commands executed.
+- Tests actually run and their results.
+- Remaining bugs.
+- Known limitations.
+- The next concrete development task.
+
+The final objective is a working SortAI prototype that demonstrates the full chain:
+
+**Camera → AI classification → Safety decision → Colour-coded sorting → Inventory tracking → Threshold detection → Recycler bidding → Pickup verification → Simulated payment.**
+
+Prioritise reliability, explainability, safety, usability, and a credible demonstration over unnecessary complexity.
+
+Start by auditing the existing repository now.

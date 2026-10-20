@@ -1,0 +1,6 @@
+{
+  "name": "SortAI",
+  "description": "AI-Powered E-Waste Classification, Safe Sorting, and Recycler Bidding Marketplace",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
